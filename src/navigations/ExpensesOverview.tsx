@@ -1,8 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import AllExpenses from "../screens/AllExpenses"
 
 // Screen
-import ManageExpenses from "../screens/ManageExpenses"
+import AllExpenses from "../screens/AllExpenses"
 import RecentExpenses from "../screens/RecentExpenses"
 
 const { Navigator, Screen } = createBottomTabNavigator()

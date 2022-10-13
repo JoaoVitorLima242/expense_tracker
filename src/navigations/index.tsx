@@ -10,8 +10,12 @@ const Navigation = () => {
     return (
         <NavigationContainer>
             <Navigator>
-                <Screen name="ExpensesOverview" component={ExpensesOverview}/>
-                <Screen name="ManageExpense" component={ManageExpenses}/>
+                <Screen 
+                    name="ExpensesOverview" 
+                    component={ExpensesOverview} 
+                    options={{headerShown: false}}
+                />
+                <Screen name="ManageExpenses" component={ManageExpenses}/>
             </Navigator>
         </NavigationContainer>
     )
