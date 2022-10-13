@@ -1,5 +1,8 @@
 import { View } from "react-native"
+
+// Types
 import { Expense } from "../../../types"
+// List
 import ExpensesList from "../List"
 import ExpensesSummary from "../Summary"
 
