@@ -1,10 +1,20 @@
-import { FlatList, Text, View } from "react-native"
+import { Text, View } from "react-native"
+import { Expense } from "../../../types"
 
-const ExpensesSummary = () => {
+type Props = {
+    periodName: string
+    expenses: Expense[]
+}
+
+const ExpensesSummary = ({expenses, periodName}: Props) => {
+    const expensesSum = expenses.reduce((sum, expense) => {
+        return sum + expense.amount
+    }, 0)
+    
     return (
         <View>
-            <Text>Last 7 days</Text>
-            <Text>R$177.72</Text>
+            <Text>{periodName}</Text>
+            <Text>${expensesSum.toFixed(2)}</Text>
         </View>
     )
 }

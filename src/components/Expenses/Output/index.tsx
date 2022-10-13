@@ -1,11 +1,17 @@
 import { View } from "react-native"
+import { Expense } from "../../../types"
 import ExpensesList from "../List"
 import ExpensesSummary from "../Summary"
 
-const ExpensesOutput = ({ expenses }: any) => {
+type Props = {
+    expensesPeriod: string
+    expenses: Expense[]
+}
+
+const ExpensesOutput = ({ expenses, expensesPeriod}: Props) => {
     return (
         <View>
-            <ExpensesSummary />
+            <ExpensesSummary expenses={expenses} periodName={expensesPeriod}/>
             <ExpensesList />
         </View>
     )

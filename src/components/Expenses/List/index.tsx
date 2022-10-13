@@ -4,7 +4,9 @@ const ExpensesList = ({ expenses }: any) => {
     return (
             <FlatList 
                 data={expenses}
-                renderItem={}
+                renderItem={() => (
+                    <Text>TODO</Text>
+                )}
             />
    )
 }
