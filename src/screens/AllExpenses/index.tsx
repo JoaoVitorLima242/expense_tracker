@@ -7,12 +7,12 @@ const DUMMY_EXPENSES: Expense[] = [
         id: 'e1',
         description: 'A pair of shoes',
         amount: 59.99,
-        date: new Date('2022-02-29')
+        date: new Date('2022-04-22')
     },
     {
         id: 'e2',
         description: 'MacBook Pro M2',
-        amount: 2000.00,
+        amount: 1999.99,
         date: new Date('2022-04-22')
     },
     {
