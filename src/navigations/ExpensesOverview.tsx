@@ -14,11 +14,10 @@ const ExpensesOverview = () => {
         colors
     } = GlobalStyles
 
-    const expensePressHandler = () => {}
 
     return (
         <Navigator
-            screenOptions={{
+            screenOptions={({navigation}) => ({
                 headerStyle: {
                     backgroundColor: colors.primary500,
                 },
@@ -27,8 +26,16 @@ const ExpensesOverview = () => {
                     backgroundColor: colors.primary500,
                 },
                 tabBarActiveTintColor: colors.accent500,
-                headerRight: ({tintColor}) => <IconButton color={tintColor} size={28} icon="add" onPress={expensePressHandler}/>
-            }}
+                headerRight: ({tintColor}) => (
+                    <IconButton 
+                        color={tintColor} 
+                        size={28} 
+                        icon="add" 
+                        onPress={() => {
+                            navigation.navigate('ManageExpense')
+                        }}/>
+                )
+            })}
         >
             <Screen 
                 name="RecentExpenses" 

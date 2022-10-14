@@ -6,6 +6,16 @@ import ExpensesOverview from "./ExpensesOverview";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
+declare global {
+    namespace ReactNavigation {
+      interface RootParamList {
+        AllExpenses: undefined;
+        ManageExpense:undefined;
+        RecentExpense: undefined;
+      }
+    }
+  }   
+
 const Navigation = () => {
     return (
         <NavigationContainer>
@@ -15,7 +25,7 @@ const Navigation = () => {
                     component={ExpensesOverview} 
                     options={{headerShown: false}}
                 />
-                <Screen name="ManageExpenses" component={ManageExpenses}/>
+                <Screen name="ManageExpense" component={ManageExpenses}/>
             </Navigator>
         </NavigationContainer>
     )

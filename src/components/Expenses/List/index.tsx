@@ -12,7 +12,7 @@ const ExpensesList = ({ expenses }: Props) => {
                 style={styles.container}
                 data={expenses}
                 keyExtractor={(item) => item.id}
-                renderItem={ExpensesItem}
+                renderItem={({item}) => <ExpensesItem item={item}/>}
             />
    )
 }
