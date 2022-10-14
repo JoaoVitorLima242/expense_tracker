@@ -8,7 +8,7 @@ type Props = {
     item: Expense
 }
 
-const ExpensesItem = ({index, item}: Props) => {
+const ExpensesItem = ({item}: Props) => {
     const {
         description,
         amount,
@@ -16,7 +16,7 @@ const ExpensesItem = ({index, item}: Props) => {
     } = item
 
     return (
-        <Pressable>
+        <Pressable style={({pressed}) => pressed && styles.pressed}>
             <View style={styles.container}>
                 <View>
                     <Text style={[styles.textBase, styles.description]}>{description}</Text>
@@ -65,5 +65,8 @@ const styles = StyleSheet.create({
     amount: {
         color: GlobalStyles.colors.primary500,
         fontWeight: 'bold'
+    },
+    pressed: {
+        opacity: 0.75
     }
 })

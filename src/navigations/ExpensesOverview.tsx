@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons'
 // Screen
 import AllExpenses from "../screens/AllExpenses"
 import RecentExpenses from "../screens/RecentExpenses"
+import IconButton from "../components/ui/IconButton"
 
 const { Navigator, Screen } = createBottomTabNavigator()
 
@@ -12,6 +13,8 @@ const ExpensesOverview = () => {
     const {
         colors
     } = GlobalStyles
+
+    const expensePressHandler = () => {}
 
     return (
         <Navigator
@@ -23,7 +26,8 @@ const ExpensesOverview = () => {
                 tabBarStyle: {
                     backgroundColor: colors.primary500,
                 },
-                tabBarActiveTintColor: colors.accent500
+                tabBarActiveTintColor: colors.accent500,
+                headerRight: ({tintColor}) => <IconButton color={tintColor} size={28} icon="add" onPress={expensePressHandler}/>
             }}
         >
             <Screen 
