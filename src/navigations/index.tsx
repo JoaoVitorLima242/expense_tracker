@@ -1,21 +1,22 @@
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { GlobalStyles } from "../assets/styles/GlobalStyles";
+import ManageExpense from "../screens/ManageExpense";
+import { RootStackParamList } from "../types";
 
-import ManageExpenses from "../screens/ManageExpenses";
 import ExpensesOverview from "./ExpensesOverview";
 
-const { Navigator, Screen } = createNativeStackNavigator();
-
 declare global {
-    namespace ReactNavigation {
-      interface RootParamList {
-        AllExpenses: undefined;
-        ManageExpense:undefined;
-        RecentExpense: undefined;
-      }
+  namespace ReactNavigation {
+    interface RootParamList {
+      AllExpenses: undefined;
+      ManageExpense: {expenseId?: string} | undefined;
+      RecentExpense: undefined;
     }
-  }   
+  }
+}
+
+const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
 const Navigation = () => {
     return (
@@ -31,7 +32,7 @@ const Navigation = () => {
                     component={ExpensesOverview} 
                     options={{headerShown: false}}
                 />
-                <Screen name="ManageExpense" component={ManageExpenses} options={{
+                <Screen name="ManageExpense" component={ManageExpense} options={{
                     presentation: 'modal'
                 }}/>
             </Navigator>

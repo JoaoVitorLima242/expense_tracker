@@ -14,11 +14,12 @@ const ExpensesItem = ({item}: Props) => {
     const {
         description,
         amount,
-        date
+        date,
+        id
     } = item
     
     const expensePressHandler = () => {
-        navigation.navigate('ManageExpense')
+        navigation.navigate('ManageExpense', {expenseId: id})
     }
 
     return (

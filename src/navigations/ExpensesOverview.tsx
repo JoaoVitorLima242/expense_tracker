@@ -6,8 +6,9 @@ import { Ionicons } from '@expo/vector-icons'
 import AllExpenses from "../screens/AllExpenses"
 import RecentExpenses from "../screens/RecentExpenses"
 import IconButton from "../components/ui/IconButton"
+import { RootBottomTabParamList } from "../types"
 
-const { Navigator, Screen } = createBottomTabNavigator()
+const { Navigator, Screen } = createBottomTabNavigator<RootBottomTabParamList>()
 
 const ExpensesOverview = () => {
     const {
