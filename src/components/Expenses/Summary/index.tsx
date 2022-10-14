@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 20
+        marginBottom: 20,
+        marginHorizontal: 24
     },
     period: {
         fontSize: 12,

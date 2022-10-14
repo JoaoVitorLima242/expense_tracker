@@ -1,4 +1,4 @@
-import { FlatList, Text, View } from "react-native"
+import { FlatList, StyleSheet, Text, View } from "react-native"
 import { Expense } from "../../../types"
 import ExpensesItem from "../Item"
 
@@ -9,6 +9,7 @@ type Props = {
 const ExpensesList = ({ expenses }: Props) => {
     return (
             <FlatList 
+                style={styles.container}
                 data={expenses}
                 keyExtractor={(item) => item.id}
                 renderItem={ExpensesItem}
@@ -17,3 +18,9 @@ const ExpensesList = ({ expenses }: Props) => {
 }
 
 export default ExpensesList
+
+const styles = StyleSheet.create({
+    container: {
+        paddingHorizontal: 24,
+    }
+})
