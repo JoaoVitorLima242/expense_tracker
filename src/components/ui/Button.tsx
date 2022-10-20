@@ -4,9 +4,9 @@ import { GlobalStyles } from "../../assets/styles/GlobalStyles";
 
 type Props = {
     children: ReactNode;
-    onPress?: (event: GestureResponderEvent) => void;
+    onPress: (event: GestureResponderEvent) => void;
     outline?: boolean
-    style: StyleProp<ViewStyle>
+    style?: StyleProp<ViewStyle>
 }
 
 const Button = ({children, onPress, outline, style}: Props) => {
@@ -14,6 +14,7 @@ const Button = ({children, onPress, outline, style}: Props) => {
         <View style={style}>
             <Pressable
                 onPress={onPress}
+                style={({pressed}) => pressed && styles.pressed}
             >
                 <View style={[styles.container, outline && styles.flat]}>
                     <Text style={[styles.buttonText, outline && styles.flatText]}>{children}</Text>
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     flatText: {
-        color: GlobalStyles.colors.primary500,
+        color: GlobalStyles.colors.primary100,
     },
     pressed: {
         opacity: 0.75,

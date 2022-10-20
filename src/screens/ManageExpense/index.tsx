@@ -3,6 +3,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useLayoutEffect } from "react";
 import { StyleSheet, Text, View } from "react-native"
 import { GlobalStyles } from "../../assets/styles/GlobalStyles";
+import Button from "../../components/ui/Button";
 import IconButton from "../../components/ui/IconButton";
 import { RootStackParamList } from "../../types";
 
@@ -22,9 +23,16 @@ const ManageExpense = ({route, navigation}: Props) => {
 
     }
 
+    const cancelHandler = () => {}
+    const confirmHandler = () => {}
+
 
     return (
         <View style={styles.container}>
+            <View style={styles.buttonsContainer}>
+                <Button style={styles.button} onPress={cancelHandler} outline>Cancel</Button>
+                <Button style={styles.button} onPress={confirmHandler}>{isEditing ? 'Update' : 'Add'}</Button>
+            </View>
             <View style={styles.deleteContainer}>
                 {isEditing && 
                     <IconButton 
@@ -53,5 +61,14 @@ const styles = StyleSheet.create({
         borderTopWidth: 2,
         borderTopColor: GlobalStyles.colors.primary200,
         alignItems: 'center'
-    }
+    },
+    button: {
+        minWidth: 120,
+        marginHorizontal: 8
+    },
+    buttonsContainer:  {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 })
