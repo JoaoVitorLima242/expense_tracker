@@ -1,4 +1,3 @@
-import { ParamListBase, RouteProp } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useLayoutEffect } from "react";
 import { StyleSheet, Text, View } from "react-native"
@@ -20,11 +19,16 @@ const ManageExpense = ({route, navigation}: Props) => {
     }, [isEditing, navigation])
 
     const deleteExpenseHandler = () => {
-
+        navigation.goBack()
     }
 
-    const cancelHandler = () => {}
-    const confirmHandler = () => {}
+    const cancelHandler = () => {
+        navigation.goBack()
+    }
+
+    const confirmHandler = () => {
+        navigation.goBack()
+    }
 
 
     return (
