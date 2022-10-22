@@ -30,7 +30,7 @@ const ExpensesItem = ({item}: Props) => {
                     <Text style={[styles.textBase]}>{formatedDate(date)}</Text>
                 </View>
                 <View style={styles.amountContainer}>
-                    <Text style={[styles.textBase, styles.amount]}>{amount}</Text>
+                    <Text style={[styles.textBase, styles.amount]}>{amount.toFixed(2)}</Text>
                 </View>
             </View>
         </Pressable>

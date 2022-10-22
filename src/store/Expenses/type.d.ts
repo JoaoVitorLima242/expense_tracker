@@ -3,7 +3,13 @@ import { Expense } from "../../types";
 
 type Payload = {
     id?: string;
-    data?: Expense
+    data?: ExpenseData
+}
+
+export type ExpenseData = {
+  description: string;
+  amount: number;
+  date: Date;
 }
 
 export interface Action {
@@ -15,9 +21,9 @@ export type State = Expense[]
 
 export type ContextValue = {
   expenses: Expense[] | [] ;
-  addExpense: (expenseData: Expense) => void;
-  deleteExpense: (id: string, expenseData: Expense) => void;
-  updateExpense: (id: string) => void;
+  addExpense: (expenseData: ExpenseData) => void;
+  deleteExpense: (id: string) => void;
+  updateExpense: (id: string, expenseData: ExpenseData) => void;
 }
 
 export type ProviderProps = {
