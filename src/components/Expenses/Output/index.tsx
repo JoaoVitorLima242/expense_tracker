@@ -1,22 +1,30 @@
-import { StyleSheet, View } from "react-native"
-import { GlobalStyles } from "../../../assets/styles/GlobalStyles"
+import { ReactNode } from "react"
+import { StyleSheet, Text, View } from "react-native"
 
+import { GlobalStyles } from "../../../assets/styles/GlobalStyles"
 // Types
 import { Expense } from "../../../types"
-// List
+// Components
 import ExpensesList from "../List"
 import ExpensesSummary from "../Summary"
 
 type Props = {
-    expensesPeriod: string
-    expenses: Expense[]
+    expensesPeriod: string;
+    expenses: Expense[];
+    fallbackText: ReactNode;
 }
 
-const ExpensesOutput = ({ expenses, expensesPeriod}: Props) => {
+const ExpensesOutput = ({ expenses, expensesPeriod, fallbackText}: Props) => {
+    let content: ReactNode = <Text style={styles.infoText}>{fallbackText}</Text>
+
+     if(expenses.length > 0) {
+        content = <ExpensesList expenses={expenses}/>
+    }
+
     return (
         <View style={styles.container}>
             <ExpensesSummary expenses={expenses} periodName={expensesPeriod}/>
-            <ExpensesList expenses={expenses}/>
+            {content}
         </View>
     )
 }
@@ -29,5 +37,11 @@ const styles = StyleSheet.create({
         backgroundColor: GlobalStyles.colors.primary700,
         flex: 1,
         paddingBottom: 0
+    },
+    infoText: {
+        color: 'white',
+        fontSize: 16,
+        textAlign: 'center',
+        marginTop: 32
     }
 })
