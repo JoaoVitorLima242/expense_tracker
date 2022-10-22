@@ -8,6 +8,7 @@ import ExpenseForm from "../../components/Manage/Form";
 import { FormValues } from "../../components/Manage/Form/type";
 
 import Button from "../../components/ui/Button";
+import ErrorOverlay from "../../components/ui/ErrorOverlay";
 import IconButton from "../../components/ui/IconButton";
 import LoadingOverlay from "../../components/ui/LoadingOverlay";
 import { ExpensesContext } from "../../store/Expenses/context";
@@ -23,7 +24,9 @@ const ManageExpense = ({route, navigation}: Props) => {
         updateExpense,
         expenses
     } = useContext(ExpensesContext)
+
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [error, setError] = useState('')
 
     const editedExpenseId = route.params?.expenseId
     const isEditing = !!editedExpenseId
@@ -39,9 +42,14 @@ const ManageExpense = ({route, navigation}: Props) => {
 
     const deleteExpenseHandler = async () => {
         setIsSubmitting(true)
-        deleteExpenseRequest(editedExpenseId as string)
-        deleteExpense(editedExpenseId as string )
-        navigation.goBack()
+        try {
+            deleteExpenseRequest(editedExpenseId as string)
+            deleteExpense(editedExpenseId as string )
+            navigation.goBack()
+        } catch(err) {
+            setError('Could not delete expense - please try again later.')
+            setIsSubmitting(false)
+        }
     }
 
     const cancelHandler = () => {
@@ -68,21 +76,33 @@ const ManageExpense = ({route, navigation}: Props) => {
 
         if ( !amountIsValid || !dateIsValid || !descriptionIsValid ) {
             Alert.alert('Invalid input', 'Please check your input values')
+            setIsSubmitting(false)
             return
         }
 
-        if (isEditing) {
-            updateExpense(editedExpenseId, formatedData)
-            updateExpenseRequest(editedExpenseId, formatedData)
-        } else {
-            const id = await storeExpenseRequest(formatedData)
-            addExpense({...formatedData, id})
+        try {
+            if (isEditing) {
+                updateExpense(editedExpenseId, formatedData)
+                updateExpenseRequest(editedExpenseId, formatedData)
+            } else {
+                const id = await storeExpenseRequest(formatedData)
+                addExpense({...formatedData, id})
+            }
+            navigation.goBack()
+        } catch(err) {
+            setError('Could not save data - please try again later.')
+            setIsSubmitting(false)
         }
-        navigation.goBack()
+
+    }
+
+    const errorHandler = () => {
+        setError('')
     }
 
     if (isSubmitting) return <LoadingOverlay />
 
+    if (error) return <ErrorOverlay onConfirm={errorHandler} message={error}/>
 
     return (
         <View style={styles.container}>
