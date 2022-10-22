@@ -1,4 +1,4 @@
-import { View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import Input from "../Input"
 
 const ExpenseForm = () => {
