@@ -44,7 +44,7 @@ const ManageExpense = ({route, navigation}: Props) => {
         navigation.goBack()
     } 
 
-    const confirmHandler = (data: FormValues) => {
+    const confirmHandler = async (data: FormValues) => {
         const {
             description,
             date,
@@ -67,10 +67,10 @@ const ManageExpense = ({route, navigation}: Props) => {
         }
 
         if (isEditing) {
-            updateExpense(editedExpenseId, formatedData)
+            // updateExpense(editedExpenseId, formatedData)
         } else {
-            storeExpense(formatedData)
-            addExpense(formatedData)
+            const id = await storeExpense(formatedData)
+            addExpense({...formatedData, id})
         }
         navigation.goBack()
     }

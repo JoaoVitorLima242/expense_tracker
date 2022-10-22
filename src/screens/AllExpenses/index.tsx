@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { getExpenses } from "../../api"
 import ExpensesOutput from "../../components/Expenses/Output"
 import { ExpensesContext } from "../../store/Expenses/context"
-import { Expense } from "../../types"
+
 
 const AllExpenses = () => {
     const {expenses, setExpenses} = useContext(ExpensesContext)
@@ -10,7 +10,7 @@ const AllExpenses = () => {
     useEffect(() => {
         const fetchData = async () => {
             const expensesResponse = await getExpenses()
-            
+
             setExpenses(expensesResponse)
         }
 

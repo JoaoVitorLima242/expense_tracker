@@ -5,11 +5,15 @@ import { Expense } from "../types"
 const BACKEND_URL = 'https://react-native-637a1-default-rtdb.firebaseio.com'
 
 
-export const storeExpense = (expenseData: ExpenseData) => {
-    axios.post(
+export const storeExpense = async (expenseData: ExpenseData) => {
+    const response = await axios.post(
         BACKEND_URL + '/expenses.json',
         expenseData
     )
+    
+    const id: string = response.data.name
+
+    return id
 }
 
 export const getExpenses = async () => {

@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 
 // Types
 import { Expense } from "../../types";
-import { Action, ContextValue, ExpenseData, ProviderProps, State } from "./type";
+import { Action, ContextValue, ProviderProps, State } from "./type";
 
 const DUMMY_EXPENSES: Expense[] = [
     {
@@ -42,12 +42,11 @@ export const ExpensesContext = createContext({} as ContextValue);
 const expensesReducer = (state: State, action: Action): State => {
     switch (action.type) {
         case 'ADD':
-            const newId = new Date().toString() + Math.random().toString()
-            const expenseData = action.payload.data as Expense
-            const newExpense = { ...expenseData, id: newId }
+            const newExpense = action.payload.data as Expense
             return [newExpense, ...state]
         case 'SET':
-            return action.payload.expenses as Expense[]
+            const inverted = action.payload.expenses?.reverse() as Expense[]
+            return inverted
         case 'UPDATE':
             const updatedExpenseIndex = state.findIndex(
                 expense => expense.id === action.payload.id
@@ -69,16 +68,16 @@ const expensesReducer = (state: State, action: Action): State => {
 const ExpensesProvider = ({children}: ProviderProps) => {
     const [expenses, dispatch] = useReducer(expensesReducer, [])
 
-    const addExpense = (expenseData: ExpenseData) => {
-        dispatch({type: 'ADD', payload: { data: expenseData }})
+    const addExpense = (expense: Expense) => {
+        dispatch({type: 'ADD', payload: { data: expense }})
     }
 
-    const setExpenses = (expense: Expense[]) => {
-        dispatch({type: 'SET', payload: { expenses: expense }})
+    const setExpenses = (expenses: Expense[]) => {
+        dispatch({type: 'SET', payload: { expenses }})
     }
 
-    const updateExpense = (id: string, expenseData: ExpenseData) => {
-        dispatch({type: 'UPDATE', payload: { id, data: expenseData }})
+    const updateExpense = (expense: Expense) => {
+        dispatch({type: 'UPDATE', payload: { data: expense }})
     }
 
     const deleteExpense = (id: string) => {
