@@ -4,6 +4,7 @@ import { GlobalStyles } from "../../../assets/styles/GlobalStyles"
 import Input from "../Input"
 import { Expense } from "../../../types"
 import { CustomControl } from "./type"
+import moment from "moment"
 
 type Props = {
     control: CustomControl;
@@ -17,7 +18,7 @@ const ExpenseForm = ({ control, initialValues }: Props) => {
         description = ''
     } = initialValues as Expense
 
-    const formatedDate = date ? date.toISOString().slice(0,10) : ''
+    const formatedDate = date ? moment(date).format('YYYY-MM-DD') : ''
     const formatedAmount = amount.toString()
 
     return (

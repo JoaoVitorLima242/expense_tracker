@@ -3,7 +3,7 @@ import { Expense } from "../../types";
 
 type Payload = {
     id?: string;
-    data?: Expense
+    data?: ExpenseData
     expenses?: Expense[]
 }
 
@@ -25,7 +25,7 @@ export type ContextValue = {
   addExpense: (expense: Expense) => void;
   setExpenses: (expense: Expense[]) => void;
   deleteExpense: (id: string) => void;
-  updateExpense: (expense: Expense) => void;
+  updateExpense: (id: string, expenseData: ExpenseData) => void;
 }
 
 export type ProviderProps = {

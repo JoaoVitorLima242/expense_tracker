@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useContext, useLayoutEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, StyleSheet, View } from "react-native"
-import { storeExpense } from "../../api";
+import { deleteExpenseRequest, storeExpenseRequest, updateExpenseRequest } from "../../api";
 import { GlobalStyles } from "../../assets/styles/GlobalStyles";
 import ExpenseForm from "../../components/Manage/Form";
 import { FormValues } from "../../components/Manage/Form/type";
@@ -35,7 +35,8 @@ const ManageExpense = ({route, navigation}: Props) => {
         })
     }, [isEditing, navigation])
 
-    const deleteExpenseHandler = () => {
+    const deleteExpenseHandler = async () => {
+        deleteExpenseRequest(editedExpenseId as string)
         deleteExpense(editedExpenseId as string )
         navigation.goBack()
     }
@@ -67,9 +68,10 @@ const ManageExpense = ({route, navigation}: Props) => {
         }
 
         if (isEditing) {
-            // updateExpense(editedExpenseId, formatedData)
+            updateExpense(editedExpenseId, formatedData)
+            updateExpenseRequest(editedExpenseId, formatedData)
         } else {
-            const id = await storeExpense(formatedData)
+            const id = await storeExpenseRequest(formatedData)
             addExpense({...formatedData, id})
         }
         navigation.goBack()

@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react"
-import { getExpenses } from "../../api"
+import { useContext, useEffect } from "react"
+import { getExpensesRequest } from "../../api"
 import ExpensesOutput from "../../components/Expenses/Output"
 import { ExpensesContext } from "../../store/Expenses/context"
 
@@ -9,15 +9,13 @@ const AllExpenses = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const expensesResponse = await getExpenses()
+            const expensesResponse = await getExpensesRequest()
 
             setExpenses(expensesResponse)
         }
 
         fetchData()
     }, [])
-
-    console.log(expenses)
 
     return (
         <ExpensesOutput 

@@ -1,6 +1,6 @@
 import moment from "moment"
 import { useContext, useEffect, useState } from "react"
-import { getExpenses } from "../../api"
+import { getExpensesRequest } from "../../api"
 
 import ExpensesOutput from "../../components/Expenses/Output"
 import { getDateMinusDays } from "../../helpers/date"
@@ -14,7 +14,7 @@ const RecentExpenses = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const expensesResponse = await getExpenses()
+            const expensesResponse = await getExpensesRequest()
 
             setExpenses(expensesResponse)
         }
@@ -32,8 +32,6 @@ const RecentExpenses = () => {
         return moment(expense.date).diff(date7DaysAgo) >= 0
 
     })
-
-    console.log(recentExpenses)
 
     return (
         <ExpensesOutput 

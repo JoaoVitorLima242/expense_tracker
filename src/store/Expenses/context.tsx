@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 
 // Types
 import { Expense } from "../../types";
-import { Action, ContextValue, ProviderProps, State } from "./type";
+import { Action, ContextValue, ExpenseData, ProviderProps, State } from "./type";
 
 const DUMMY_EXPENSES: Expense[] = [
     {
@@ -76,8 +76,8 @@ const ExpensesProvider = ({children}: ProviderProps) => {
         dispatch({type: 'SET', payload: { expenses }})
     }
 
-    const updateExpense = (expense: Expense) => {
-        dispatch({type: 'UPDATE', payload: { data: expense }})
+    const updateExpense = (id: string, expenseData: ExpenseData) => {
+        dispatch({type: 'UPDATE', payload: { id, data: expenseData }})
     }
 
     const deleteExpense = (id: string) => {
