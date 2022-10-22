@@ -1,5 +1,7 @@
+import moment from 'moment'
+
 export const formatedDate = (date: Date) => {
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+    return moment(date).format('MM/DD/YYYY')
 }
 
 export const getDateMinusDays = (date: Date, days: number) => {

@@ -1,11 +1,23 @@
-import { useContext } from "react"
-import { Text, View } from "react-native"
+import { useEffect, useState } from "react"
+import { getExpenses } from "../../api"
 import ExpensesOutput from "../../components/Expenses/Output"
-import { ExpensesContext } from "../../store/Expenses/context"
 import { Expense } from "../../types"
 
 const AllExpenses = () => {
-    const {expenses} = useContext(ExpensesContext)
+    const [expenses, setExpenses] = useState<Expense[]>([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const expensesResponse = await getExpenses()
+
+            console.log(expensesResponse)
+            setExpenses(expensesResponse)
+        }
+
+        fetchData()
+    }, [])
+
+    console.log(expenses)
 
     return (
         <ExpensesOutput 

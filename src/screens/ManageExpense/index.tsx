@@ -2,6 +2,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useContext, useLayoutEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, StyleSheet, View } from "react-native"
+import { storeExpense } from "../../api";
 import { GlobalStyles } from "../../assets/styles/GlobalStyles";
 import ExpenseForm from "../../components/Manage/Form";
 import { FormValues } from "../../components/Manage/Form/type";
@@ -68,6 +69,7 @@ const ManageExpense = ({route, navigation}: Props) => {
         if (isEditing) {
             updateExpense(editedExpenseId, formatedData)
         } else {
+            storeExpense(formatedData)
             addExpense(formatedData)
         }
         navigation.goBack()
