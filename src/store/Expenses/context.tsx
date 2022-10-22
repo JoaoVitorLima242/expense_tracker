@@ -46,6 +46,8 @@ const expensesReducer = (state: State, action: Action): State => {
             const expenseData = action.payload.data as Expense
             const newExpense = { ...expenseData, id: newId }
             return [newExpense, ...state]
+        case 'SET':
+            return action.payload.expenses as Expense[]
         case 'UPDATE':
             const updatedExpenseIndex = state.findIndex(
                 expense => expense.id === action.payload.id
@@ -71,6 +73,10 @@ const ExpensesProvider = ({children}: ProviderProps) => {
         dispatch({type: 'ADD', payload: { data: expenseData }})
     }
 
+    const setExpenses = (expense: Expense[]) => {
+        dispatch({type: 'SET', payload: { expenses: expense }})
+    }
+
     const updateExpense = (id: string, expenseData: ExpenseData) => {
         dispatch({type: 'UPDATE', payload: { id, data: expenseData }})
     }
@@ -82,6 +88,7 @@ const ExpensesProvider = ({children}: ProviderProps) => {
     const value = {
         expenses,
         addExpense,
+        setExpenses,
         deleteExpense,
         updateExpense
     }

@@ -9,7 +9,8 @@ import { Expense } from "../../types"
 
 
 const RecentExpenses = () => {
-    const [expenses, setExpenses] = useState<Expense[]>([])
+    const {setExpenses, expenses} = useContext(ExpensesContext)
+    // const [expenses, setExpenses] = useState<Expense[]>([])
 
     useEffect(() => {
         const fetchData = async () => {
