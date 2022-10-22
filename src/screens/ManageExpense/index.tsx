@@ -2,6 +2,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useContext, useLayoutEffect } from "react";
 import { StyleSheet, View } from "react-native"
 import { GlobalStyles } from "../../assets/styles/GlobalStyles";
+import ExpenseForm from "../../components/Manage/Form";
 
 import Button from "../../components/ui/Button";
 import IconButton from "../../components/ui/IconButton";
@@ -42,6 +43,7 @@ const ManageExpense = ({route, navigation}: Props) => {
 
     return (
         <View style={styles.container}>
+            <ExpenseForm />
             <View style={styles.buttonsContainer}>
                 <Button style={styles.button} onPress={cancelHandler} outline>Cancel</Button>
                 <Button style={styles.button} onPress={confirmHandler}>{isEditing ? 'Update' : 'Add'}</Button>
