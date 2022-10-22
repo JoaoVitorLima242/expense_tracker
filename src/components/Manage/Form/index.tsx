@@ -1,15 +1,25 @@
 import { StyleSheet, Text, View } from "react-native"
 
 import { GlobalStyles } from "../../../assets/styles/GlobalStyles"
-import { ExpenseData } from "../../../store/Expenses/type"
 import Input from "../Input"
+import { Expense } from "../../../types"
 import { CustomControl } from "./type"
 
 type Props = {
-    control: CustomControl
+    control: CustomControl;
+    initialValues?: Expense | {};
 }
 
-const ExpenseForm = ({ control }: Props) => {
+const ExpenseForm = ({ control, initialValues }: Props) => {
+    const {
+        date,
+        amount = '',
+        description = ''
+    } = initialValues as Expense
+
+    const formatedDate = date ? date.toISOString().slice(0,10) : ''
+    const formatedAmount = amount.toString()
+
     return (
         <View style={styles.form}>
             <Text style={styles.title}>Your Expense</Text>
@@ -22,6 +32,7 @@ const ExpenseForm = ({ control }: Props) => {
                         keyboardType: 'decimal-pad', 
                     }}
                     name='amount'
+                    defaultValue={formatedAmount}
                 />
                 <Input 
                     label="Date" 
@@ -32,6 +43,7 @@ const ExpenseForm = ({ control }: Props) => {
                         maxLength: 10, 
                     }}
                     name='date'
+                    defaultValue={formatedDate}
                     />
             </View>
             <Input 
@@ -41,6 +53,7 @@ const ExpenseForm = ({ control }: Props) => {
                     multiline: true
                 }}
                 name='description'
+                defaultValue={description}
             />
         </View>
     )

@@ -15,9 +15,18 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ManageExpense'>;
 
 const ManageExpense = ({route, navigation}: Props) => {
     const {control, handleSubmit} = useForm<FormValues>()
-    const {addExpense, deleteExpense, updateExpense} = useContext(ExpensesContext)
+    const {
+        addExpense, 
+        deleteExpense, 
+        updateExpense,
+        expenses
+    } = useContext(ExpensesContext)
+
     const editedExpenseId = route.params?.expenseId
     const isEditing = !!editedExpenseId
+    const selectedExpense = expenses.find(
+        expense => expense.id === editedExpenseId
+    )
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -60,6 +69,7 @@ const ManageExpense = ({route, navigation}: Props) => {
         <View style={styles.container}>
             <ExpenseForm 
                 control={control}
+                initialValues={selectedExpense || {}}
             />
             <View style={styles.buttonsContainer}>
                 <Button style={styles.button} onPress={cancelHandler} outline>Cancel</Button>

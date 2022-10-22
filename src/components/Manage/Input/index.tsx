@@ -10,6 +10,7 @@ type Props = {
     style?: StyleProp<ViewStyle>;
     control: CustomControl;
     name: "description" | "amount" | "date";
+    defaultValue?: string
 }
 
 const Input = ({
@@ -17,12 +18,13 @@ const Input = ({
     style, 
     textInputConfig, 
     control,
-    name
+    name,
+    defaultValue
 }: Props) => {
     const { field } = useController({
         name,
         control,
-        defaultValue: ''
+        defaultValue
     })
 
     let inputStyles: StyleProp<TextStyle> = [styles.input]
