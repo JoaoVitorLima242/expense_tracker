@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { Expense } from "../../types";
 
 type Payload = {
@@ -13,9 +14,12 @@ export interface Action {
 export type State = Expense[]
 
 export type ContextValue = {
-    expenses: Expense[] | [] ;
-    addExpense: (expenseData: Expense) => void;
-    deleteExpense: (id: string, expenseData: Expense) => void;
-    updateExpense: (id: string) => void;
+  expenses: Expense[] | [] ;
+  addExpense: (expenseData: Expense) => void;
+  deleteExpense: (id: string, expenseData: Expense) => void;
+  updateExpense: (id: string) => void;
 }
 
+export type ProviderProps = {
+  children: ReactNode
+}

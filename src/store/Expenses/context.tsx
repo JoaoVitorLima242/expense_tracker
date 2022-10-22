@@ -1,19 +1,21 @@
 import { createContext, useReducer } from "react";
+
+// Types
 import { Expense } from "../../types";
-import { Action, ContextValue, State } from "./type";
+import { Action, ContextValue, ProviderProps, State } from "./type";
 
 const DUMMY_EXPENSES: Expense[] = [
     {
         id: 'e1',
         description: 'A pair of shoes',
         amount: 59.99,
-        date: new Date('2022-04-22')
+        date: new Date('2022-10-20')
     },
     {
         id: 'e2',
         description: 'MacBook Pro M2',
         amount: 1999.99,
-        date: new Date('2022-04-22')
+        date: new Date('2022-10-18')
     },
     {
         id: 'e3',
@@ -62,7 +64,7 @@ const expensesReducer = (state: State, action: Action): State => {
     }
 }
 
-const ExpensesProvider = ({children}: any) => {
+const ExpensesProvider = ({children}: ProviderProps) => {
     const [expenses, dispatch] = useReducer(expensesReducer, DUMMY_EXPENSES)
 
     const addExpense = (expenseData: Expense) => {
