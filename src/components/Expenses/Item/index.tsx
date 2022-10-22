@@ -1,7 +1,9 @@
 import { useNavigation } from "@react-navigation/native"
 import { Pressable, StyleSheet, Text, View } from "react-native"
+
 import { GlobalStyles } from "../../../assets/styles/GlobalStyles"
 import { formatedDate } from "../../../helpers/date"
+import { formatedPrice } from "../../../helpers/pricing"
 import { Expense } from "../../../types"
 
 type Props = {
@@ -30,7 +32,7 @@ const ExpensesItem = ({item}: Props) => {
                     <Text style={[styles.textBase]}>{formatedDate(date)}</Text>
                 </View>
                 <View style={styles.amountContainer}>
-                    <Text style={[styles.textBase, styles.amount]}>{amount.toFixed(2)}</Text>
+                    <Text style={[styles.textBase, styles.amount]}>$ {formatedPrice(amount)}</Text>
                 </View>
             </View>
         </Pressable>

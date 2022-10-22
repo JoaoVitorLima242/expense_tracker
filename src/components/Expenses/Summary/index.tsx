@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native"
 import { GlobalStyles } from "../../../assets/styles/GlobalStyles"
+import { formatedPrice } from "../../../helpers/pricing"
 import { Expense } from "../../../types"
 
 type Props = {
@@ -15,7 +16,7 @@ const ExpensesSummary = ({expenses, periodName}: Props) => {
     return (
         <View style={styles.container}>
             <Text style={styles.period}>{periodName}</Text>
-            <Text style={styles.sum}>${expensesSum.toFixed(2)}</Text>
+            <Text style={styles.sum}>$ {formatedPrice(expensesSum)}</Text>
         </View>
     )
 }
