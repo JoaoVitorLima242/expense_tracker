@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useContext, useLayoutEffect } from "react";
 import { useForm } from "react-hook-form";
-import { StyleSheet, View } from "react-native"
+import { Alert, StyleSheet, View } from "react-native"
 import { GlobalStyles } from "../../assets/styles/GlobalStyles";
 import ExpenseForm from "../../components/Manage/Form";
 import { FormValues } from "../../components/Manage/Form/type";
@@ -54,6 +54,15 @@ const ManageExpense = ({route, navigation}: Props) => {
             description,
             date: new Date(date),
             amount: Number(amount)
+        }
+
+        const amountIsValid = !isNaN(formatedData.amount) && Number(formatedData.amount) > 0
+        const dateIsValid =  formatedData.date.toString() !== 'Invalid Date'
+        const descriptionIsValid = formatedData.description.trim().length > 0
+
+        if ( !amountIsValid || !dateIsValid || !descriptionIsValid ) {
+            Alert.alert('Invalid input', 'Please check your input values')
+            return
         }
 
         if (isEditing) {
