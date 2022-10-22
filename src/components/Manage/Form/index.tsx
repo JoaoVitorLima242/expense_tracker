@@ -1,27 +1,46 @@
 import { StyleSheet, Text, View } from "react-native"
-import { GlobalStyles } from "../../../assets/styles/GlobalStyles"
-import Input from "../Input"
 
-const ExpenseForm = () => {
-    
+import { GlobalStyles } from "../../../assets/styles/GlobalStyles"
+import { ExpenseData } from "../../../store/Expenses/type"
+import Input from "../Input"
+import { CustomControl } from "./type"
+
+type Props = {
+    control: CustomControl
+}
+
+const ExpenseForm = ({ control }: Props) => {
     return (
         <View style={styles.form}>
             <Text style={styles.title}>Your Expense</Text>
             <View style={styles.inputsRow}>
-                <Input label="Amount" style={styles.rowInput} textInputConfig={{
-                    keyboardType: 'decimal-pad',
-                    onChangeText: () => {}
-                }}/>
-                <Input label="Date" style={styles.rowInput} textInputConfig={{
-                    placeholder: 'YYYY-MM-DD',
-                    maxLength: 10,
-                    onChangeText: () => {}
-                }}/>
+                <Input 
+                    label="Amount" 
+                    style={styles.rowInput} 
+                    control={control}
+                    textInputConfig={{
+                        keyboardType: 'decimal-pad', 
+                    }}
+                    name='amount'
+                />
+                <Input 
+                    label="Date" 
+                    style={styles.rowInput}
+                    control={control}
+                    textInputConfig={{
+                        placeholder: 'YYYY-MM-DD',
+                        maxLength: 10, 
+                    }}
+                    name='date'
+                    />
             </View>
-            <Input label="Description" textInputConfig={{
-                    onChangeText: () => {},
+            <Input 
+                label="Description"
+                control={control} 
+                textInputConfig={{
                     multiline: true
                 }}
+                name='description'
             />
         </View>
     )

@@ -1,8 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useContext, useLayoutEffect } from "react";
+import { useForm } from "react-hook-form";
 import { StyleSheet, View } from "react-native"
 import { GlobalStyles } from "../../assets/styles/GlobalStyles";
 import ExpenseForm from "../../components/Manage/Form";
+import { FormValues } from "../../components/Manage/Form/type";
 
 import Button from "../../components/ui/Button";
 import IconButton from "../../components/ui/IconButton";
@@ -12,6 +14,7 @@ import { RootStackParamList } from "../../types";
 type Props = NativeStackScreenProps<RootStackParamList, 'ManageExpense'>;
 
 const ManageExpense = ({route, navigation}: Props) => {
+    const {control, handleSubmit} = useForm<FormValues>()
     const {addExpense, deleteExpense, updateExpense} = useContext(ExpensesContext)
     const editedExpenseId = route.params?.expenseId
     const isEditing = !!editedExpenseId
@@ -31,11 +34,23 @@ const ManageExpense = ({route, navigation}: Props) => {
         navigation.goBack()
     } 
 
-    const confirmHandler = () => {
+    const confirmHandler = (data: FormValues) => {
+        const {
+            description,
+            date,
+            amount
+        } = data
+
+        const formatedData = {
+            description,
+            date: new Date(date),
+            amount: Number(amount)
+        }
+
         if (isEditing) {
-            updateExpense(editedExpenseId, {description: 'Edited', date: new Date(), amount: 200.00})
+            updateExpense(editedExpenseId, formatedData)
         } else {
-            addExpense({description: 'New Product', date: new Date(), amount: 200.00})
+            addExpense(formatedData)
         }
         navigation.goBack()
     }
@@ -43,10 +58,12 @@ const ManageExpense = ({route, navigation}: Props) => {
 
     return (
         <View style={styles.container}>
-            <ExpenseForm />
+            <ExpenseForm 
+                control={control}
+            />
             <View style={styles.buttonsContainer}>
                 <Button style={styles.button} onPress={cancelHandler} outline>Cancel</Button>
-                <Button style={styles.button} onPress={confirmHandler}>{isEditing ? 'Update' : 'Add'}</Button>
+                <Button style={styles.button} onPress={handleSubmit(confirmHandler)}>{isEditing ? 'Update' : 'Add'}</Button>
             </View>
             <View style={styles.deleteContainer}>
                 {isEditing && 

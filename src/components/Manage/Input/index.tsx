@@ -1,13 +1,29 @@
+import {  useController } from "react-hook-form"
 import { TextInputProps, Text, TextInput, View, StyleSheet, TextStyle, StyleProp, ViewStyle } from "react-native"
+
 import { GlobalStyles } from "../../../assets/styles/GlobalStyles"
+import { CustomControl } from "../Form/type";
 
 type Props = {
-    label?: string
-    textInputConfig?: TextInputProps
-    style?: StyleProp<ViewStyle>
+    label?: string;
+    textInputConfig?: TextInputProps;
+    style?: StyleProp<ViewStyle>;
+    control: CustomControl;
+    name: "description" | "amount" | "date";
 }
 
-const Input = ({label, style, textInputConfig}: Props) => {
+const Input = ({
+    label, 
+    style, 
+    textInputConfig, 
+    control,
+    name
+}: Props) => {
+    const { field } = useController({
+        name,
+        control,
+        defaultValue: ''
+    })
 
     let inputStyles: StyleProp<TextStyle> = [styles.input]
 
@@ -18,7 +34,12 @@ const Input = ({label, style, textInputConfig}: Props) => {
     return (
         <View style={[styles.container, style]}>
             {label && <Text style={styles.label}>{label}</Text>}
-            <TextInput style={inputStyles} {...textInputConfig}/>
+            <TextInput
+                value={field.value}
+                onChangeText={field.onChange}
+                style={inputStyles} 
+                {...textInputConfig}
+            />
         </View>
     )
 }
