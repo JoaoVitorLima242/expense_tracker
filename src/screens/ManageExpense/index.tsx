@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useContext, useLayoutEffect } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, StyleSheet, View } from "react-native"
 import { deleteExpenseRequest, storeExpenseRequest, updateExpenseRequest } from "../../api";
@@ -9,6 +9,7 @@ import { FormValues } from "../../components/Manage/Form/type";
 
 import Button from "../../components/ui/Button";
 import IconButton from "../../components/ui/IconButton";
+import LoadingOverlay from "../../components/ui/LoadingOverlay";
 import { ExpensesContext } from "../../store/Expenses/context";
 import { RootStackParamList } from "../../types";
 
@@ -22,6 +23,7 @@ const ManageExpense = ({route, navigation}: Props) => {
         updateExpense,
         expenses
     } = useContext(ExpensesContext)
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const editedExpenseId = route.params?.expenseId
     const isEditing = !!editedExpenseId
@@ -36,6 +38,7 @@ const ManageExpense = ({route, navigation}: Props) => {
     }, [isEditing, navigation])
 
     const deleteExpenseHandler = async () => {
+        setIsSubmitting(true)
         deleteExpenseRequest(editedExpenseId as string)
         deleteExpense(editedExpenseId as string )
         navigation.goBack()
@@ -46,6 +49,7 @@ const ManageExpense = ({route, navigation}: Props) => {
     } 
 
     const confirmHandler = async (data: FormValues) => {
+        setIsSubmitting(true)
         const {
             description,
             date,
@@ -76,6 +80,8 @@ const ManageExpense = ({route, navigation}: Props) => {
         }
         navigation.goBack()
     }
+
+    if (isSubmitting) return <LoadingOverlay />
 
 
     return (

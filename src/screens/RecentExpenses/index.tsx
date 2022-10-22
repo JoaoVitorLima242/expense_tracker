@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react"
 import { getExpensesRequest } from "../../api"
 
 import ExpensesOutput from "../../components/Expenses/Output"
+import LoadingOverlay from "../../components/ui/LoadingOverlay"
 import { getDateMinusDays } from "../../helpers/date"
 import { ExpensesContext } from "../../store/Expenses/context"
 import { Expense } from "../../types"
@@ -10,11 +11,13 @@ import { Expense } from "../../types"
 
 const RecentExpenses = () => {
     const {setExpenses, expenses} = useContext(ExpensesContext)
-    // const [expenses, setExpenses] = useState<Expense[]>([])
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true)
             const expensesResponse = await getExpensesRequest()
+            setIsLoading(false)
 
             setExpenses(expensesResponse)
         }
@@ -32,6 +35,10 @@ const RecentExpenses = () => {
         return moment(expense.date).diff(date7DaysAgo) >= 0
 
     })
+
+    if (isLoading) {
+        return <LoadingOverlay />
+    }
 
     return (
         <ExpensesOutput 
